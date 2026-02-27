@@ -89,10 +89,14 @@ public_html/
 
 ### OBLIGATORIU: Push pe AMBELE conturi la fiecare update!
 
-La fiecare commit, codul trebuie propagat pe ambele profiluri GitHub pentru backup redundant:
+La fiecare commit, codul trebuie propagat pe ambele profiluri GitHub pentru backup redundant.
+
+**Alias configurat:** Folosește comanda simplificată:
 ```bash
-git push origin main && git push backup main
+git pushall
 ```
+
+Echivalent cu: `git push origin main && git push backup main`
 
 **Credențiale GitHub:** Vezi `GitHub_profile_Cornel.md` (în același director - fisiere.md/)
 - Conține token-uri, comenzi pentru creare repos, și configurare git
