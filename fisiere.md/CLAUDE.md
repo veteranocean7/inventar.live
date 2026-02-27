@@ -117,11 +117,20 @@ Echivalent cu: `git push origin main && git push backup main`
 
 **Server:** inventar.live
 **Protocol:** FTP
-**Credențiale:** Vezi FileZilla.xml din TID4K
+**Credențiale FTP:** `/home/cornel/ownCloud/Documente/ID4K/Talk-to-Infodisplay/TID4K/FileZilla.xml`
+- Host: `ftp.inventar.live`
+- User: `inventar`
 
 **Comandă deploy fișier:**
 ```bash
-curl -s -T "fisier.php" "ftp://ftp.inventar.live/public_html/fisier.php" --user "inventar:PASSWORD"
+curl -s -T "fisier.php" "ftp://ftp.inventar.live/public_html/fisier.php" --user "inventar:PAROLA_DIN_FILEZILLA"
+```
+
+**Deploy multiplu (exemplu):**
+```bash
+for f in includes/claude_vision_service.php config_claude.php; do
+  curl -s -T "$f" "ftp://ftp.inventar.live/public_html/$f" --user "inventar:PAROLA"
+done
 ```
 
 ---
