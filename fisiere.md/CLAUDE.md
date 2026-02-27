@@ -74,6 +74,37 @@ public_html/
 
 ---
 
+## GitHub Repositories
+
+**Status:** Configurat pe ambele conturi (27 Februarie 2026)
+
+| Cont | Repository | Vizibilitate | URL |
+|------|------------|--------------|-----|
+| veteranocean7 | inventar.live | Privat | https://github.com/veteranocean7/inventar.live |
+| CornelVeteran7 | inventar.live | Privat | https://github.com/CornelVeteran7/inventar.live |
+
+**Remote-uri configurate:**
+- `origin` → veteranocean7 (principal)
+- `backup` → CornelVeteran7 (backup)
+
+**Push pe ambele conturi:**
+```bash
+git push origin main && git push backup main
+```
+
+**Credențiale GitHub:** Vezi `GitHub_profile_Cornel.md`
+- Locație master: `/home/cornel/ownCloud/Documente/ID4K/Talk-to-Infodisplay/TID4K/tid4kdemo.ro/public_html/GitHub_profile_Cornel.md`
+- Conține token-uri, comenzi pentru creare repos, și configurare git
+
+**Fișiere excluse din git (.gitignore):**
+- `config.php`, `config_*.php` - configurări DB
+- `google-vision-key.json` - credențiale Google
+- `api_GV_config.php` - config Google Vision
+- `vendor/` - dependențe (regenerabil cu `composer install`)
+- `imagini_obiecte/`, `imagini_decupate/` - date utilizator
+
+---
+
 ## Deploy
 
 **Server:** inventar.live
@@ -107,4 +138,4 @@ border-top-width: 4px;
 
 ---
 
-*Ultima actualizare: 23 Ianuarie 2026*
+*Ultima actualizare: 27 Februarie 2026*
