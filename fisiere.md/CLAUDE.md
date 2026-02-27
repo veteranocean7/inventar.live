@@ -14,6 +14,7 @@
 
 | Document | Conținut | Când să citești |
 |----------|----------|-----------------|
+| `FLUX_INFORMATIE.md` | **Fluxul complet al informației** - Arhitectură, autentificare, CRUD, Google Vision, PWA/Offline, partajare, DB schema | La început de sesiune sau pentru înțelegerea aplicației |
 | `PWA_IMPLEMENTATION.md` | **Implementare PWA completă** - Service Worker, IndexedDB, Offline sync, Install assistant, Icon personalizat | Când lucrezi la funcționalități PWA/offline |
 | `DATABASE_SCHEMA.md` | Schema bazei de date | Când lucrezi cu baza de date |
 | `STATUS_AUGUST_2025.md` | Status implementări | Pentru a vedea ce e implementat |
