@@ -16,6 +16,7 @@ uploads/
 *.tmp
 .cache/
 cache/
+logs/
 
 # IDE
 .idea/
