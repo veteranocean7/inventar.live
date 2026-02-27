@@ -14,11 +14,12 @@
 
 | Document | Conținut | Când să citești |
 |----------|----------|-----------------|
-| `FLUX_INFORMATIE.md` | **Fluxul complet al informației** - Arhitectură, autentificare, CRUD, Google Vision, PWA/Offline, partajare, DB schema | La început de sesiune sau pentru înțelegerea aplicației |
+| `FLUX_INFORMATIE.md` | **Fluxul complet al informației** - Arhitectură, autentificare, CRUD, AI Vision, PWA/Offline, partajare, DB schema | La început de sesiune sau pentru înțelegerea aplicației |
+| `CLAUDE_VISION_SERVICE.md` | **Claude Vision Service** - Identificare automată obiecte cu Claude Haiku, procesare nocturnă, cost-eficient | Când lucrezi la identificarea automată a obiectelor |
 | `PWA_IMPLEMENTATION.md` | **Implementare PWA completă** - Service Worker, IndexedDB, Offline sync, Install assistant, Icon personalizat | Când lucrezi la funcționalități PWA/offline |
 | `DATABASE_SCHEMA.md` | Schema bazei de date | Când lucrezi cu baza de date |
 | `STATUS_AUGUST_2025.md` | Status implementări | Pentru a vedea ce e implementat |
-| `GOOGLE_VISION_INTEGRATION.md` | Integrare Google Vision AI | Când lucrezi cu detectarea obiectelor |
+| `GOOGLE_VISION_INTEGRATION.md` | Integrare Google Vision AI (legacy) | Referință pentru sistemul vechi |
 
 ### PWA - Progressive Web App
 
