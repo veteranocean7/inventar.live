@@ -87,14 +87,16 @@ public_html/
 - `origin` → veteranocean7 (principal)
 - `backup` → CornelVeteran7 (backup)
 
-**Push pe ambele conturi:**
+### OBLIGATORIU: Push pe AMBELE conturi la fiecare update!
+
+La fiecare commit, codul trebuie propagat pe ambele profiluri GitHub pentru backup redundant:
 ```bash
 git push origin main && git push backup main
 ```
 
-**Credențiale GitHub:** Vezi `GitHub_profile_Cornel.md`
-- Locație master: `/home/cornel/ownCloud/Documente/ID4K/Talk-to-Infodisplay/TID4K/tid4kdemo.ro/public_html/GitHub_profile_Cornel.md`
+**Credențiale GitHub:** Vezi `GitHub_profile_Cornel.md` (în același director - fisiere.md/)
 - Conține token-uri, comenzi pentru creare repos, și configurare git
+- ATENȚIE: Fișierul este exclus din git (.gitignore) pentru securitate
 
 **Fișiere excluse din git (.gitignore):**
 - `config.php`, `config_*.php` - configurări DB
