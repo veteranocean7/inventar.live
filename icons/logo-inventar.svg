@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fundal negru rotunjit -->
+  <rect x="0" y="0" width="512" height="512" rx="64" ry="64" fill="#1a1a1a"/>
+
+  <!-- Cutia principală - corp alb/gri deschis -->
+  <rect x="40" y="80" width="432" height="352" rx="8" ry="8" fill="#f5f5f5" stroke="#404040" stroke-width="12"/>
+
+  <!-- Grid - linii verticale -->
+  <g stroke="#b0b0b0" stroke-width="2">
+    <!-- 7 linii verticale pentru 8 coloane -->
+    <line x1="94" y1="92" x2="94" y2="420"/>
+    <line x1="148" y1="92" x2="148" y2="420"/>
+    <line x1="202" y1="92" x2="202" y2="420"/>
+    <line x1="256" y1="92" x2="256" y2="420"/>
+    <line x1="310" y1="92" x2="310" y2="420"/>
+    <line x1="364" y1="92" x2="364" y2="420"/>
+    <line x1="418" y1="92" x2="418" y2="420"/>
+  </g>
+
+  <!-- Grid - linii orizontale -->
+  <g stroke="#b0b0b0" stroke-width="2">
+    <!-- 4 linii orizontale pentru 5 rânduri -->
+    <line x1="52" y1="146" x2="460" y2="146"/>
+    <line x1="52" y1="212" x2="460" y2="212"/>
+    <line x1="52" y1="278" x2="460" y2="278"/>
+    <line x1="52" y1="344" x2="460" y2="344"/>
+  </g>
+
+  <!-- Etichetă centrală albă -->
+  <rect x="156" y="200" width="200" height="80" rx="4" ry="4" fill="#ffffff" stroke="#909090" stroke-width="2"/>
+
+  <!-- Aparat foto stil Lucide pe etichetă -->
+  <g transform="translate(256, 240)" stroke="#404040" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Corp aparat foto -->
+    <rect x="-36" y="-20" width="72" height="48" rx="6" ry="6"/>
+    <!-- Obiectiv (cerc) -->
+    <circle cx="0" cy="4" r="14"/>
+    <!-- Flash/vizor sus -->
+    <rect x="-8" y="-28" width="20" height="10" rx="2" ry="2"/>
+  </g>
+
+  <!-- Marginea de sus (capacul cutiei) - mai groasă -->
+  <rect x="40" y="80" width="432" height="20" rx="8" ry="8" fill="#404040"/>
+</svg>

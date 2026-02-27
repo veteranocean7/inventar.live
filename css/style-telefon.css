@@ -1,0 +1,378 @@
+body {
+    padding: 10px;
+}
+
+.container {
+    width: 100%;
+    padding: 15px;
+    box-shadow: none;
+    border-radius: 0;
+    padding-top: 50px;
+}
+
+form label {
+    font-size: 16px;
+}
+
+form input[type="text"],
+form textarea,
+form input[type="file"] {
+    font-size: 16px;
+    padding: 10px;
+}
+
+button {
+    font-size: 18px;
+    padding: 12px;
+}
+
+.thumb {
+    max-width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+}
+
+.eticheta {
+    font-size: 12px;
+    padding: 3px 6px;
+    max-width: 100px;
+}
+.select-categorie {
+    width: 90%;
+}
+
+@media only screen and (max-width: 768px) {
+    .detalii-obiecte {
+        display: block !important;
+    }
+
+    .grup-header {
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    .grup-header:hover {
+        background: #f2f2f2; /* menținem stilul neutru pe mobil */
+    }
+}
+
+.grup-obiecte {
+    background: #eeeeee; /* și aici, ușor mai vizibil */
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 22px;
+}
+
+.container-img {
+    max-width: 100%;
+    overflow-x: auto;
+    text-align: center;
+}
+.container-img img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+.rotunjit {
+    border-radius: 6px;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        max-width: none;
+        width: 100%;
+        background-color: #e0e0e0;
+        background-image:
+                linear-gradient(rgba(160, 160, 160, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(160, 160, 160, 0.4) 1px, transparent 1px);
+        background-size: 15px 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        border-radius: 0 0 3px 3px;
+        border: 2px solid #555;
+        border-top-width: 7px;
+        box-shadow:
+                0 2px 5px rgba(0,0,0,0.2),
+                inset 0 -1px 0 rgba(0,0,0,0.1), /* Linia subțire sub marginea de sus */
+                inset 0 1px 0 rgba(255,255,255,0.6);
+        z-index: 1000;
+        overflow-x: auto;         /* 💡 permite scroll dacă e nevoie */
+        white-space: nowrap;      /* 💡 previne „ruperea" pe două rânduri */
+    }
+
+    .navbar:after {
+        content: '';
+        position: absolute;
+        top: 3px;  /* Imediat sub bordura principală de 3px */
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: #666;  /* Culoare pentru linia secundară */
+        opacity: 0.5;  /* Transparență pentru a face linia mai subtilă */
+    }
+
+    .modern-link {
+        padding: 8px 12px;
+        font-size: 14px;
+        flex: none;
+        width: auto;
+        display: inline-block;
+        white-space: nowrap;
+        margin: 0;
+    }
+
+}
+
+
+
+
+
+/* Stiluri responsive pentru footer și buton donate */
+@media only screen and (max-width: 768px) {
+    /* Footer responsive */
+    .info-footer {
+        width: calc(100% - 20px);
+        max-width: none;
+        margin: 30px 10px 0;
+        border-radius: 5px;
+        padding: 8px 15px;
+        font-size: 11px;
+        box-sizing: border-box;
+    }
+    
+    .info-footer .info-text {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+    
+    .info-footer .copyright {
+        font-size: 9px;
+        margin: 0;
+    }
+    
+    /* Buton donate responsive */
+    .donate-btn {
+        bottom: 10px;
+        right: 10px;
+        left: auto !important;
+        font-size: 14px;
+        padding: 8px 15px;
+        width: auto !important;
+    }
+    
+    /* Avatar și slogan responsive */
+    .user-section {
+        top: 10px;
+        right: 10px;
+        z-index: 10001; /* Peste navbar */
+    }
+    
+    .user-avatar {
+        width: 45px;
+        height: 30px;
+    }
+    
+    .user-avatar-box {
+        background-size: 6px 6px;
+        box-shadow:
+            0 2px 3px rgba(0,0,0,0.2),
+            0 0 10px rgba(255,255,255,0.8),
+            0 0 20px rgba(255,255,255,0.5);
+        z-index: 10002;
+    }
+    
+    .user-avatar-name {
+        font-size: 9px;
+    }
+    
+    .user-slogan {
+        font-size: 9px;
+        text-shadow:
+            0 1px 0 rgba(255,255,255,1),
+            0 0 2px rgba(255,255,255,1),
+            0 0 8px rgba(255,255,255,0.8);
+    }
+    
+    /* Ajustare container pentru a face loc elementelor fixe */
+    .container {
+        padding-bottom: 120px; /* Mai mult spațiu pentru footer */
+    }
+}
+
+/* Media query pentru telefoane foarte mici (sub 480px) */
+@media only screen and (max-width: 480px) {
+    body {
+        padding: 5px;
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 10px 8px;
+        padding-top: 45px;
+        padding-bottom: 100px;
+    }
+    
+    /* Navbar pentru ecrane foarte mici */
+    .navbar {
+        padding: 8px 10px;
+        border-top-width: 5px;
+        gap: 5px;
+    }
+    
+    .modern-link {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    /* Grup obiecte mai compact */
+    .grup-obiecte {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+    
+    .grup-header {
+        font-size: 14px;
+        padding: 6px;
+    }
+    
+    /* Imagini thumbnail mai mici */
+    .thumb {
+        max-height: 100px;
+    }
+    
+    /* Etichete mai mici */
+    .eticheta {
+        font-size: 10px;
+        padding: 2px 5px;
+        max-width: 80px;
+    }
+    
+    /* Form elements */
+    form input[type="text"],
+    form textarea,
+    form input[type="file"],
+    .select-categorie {
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    /* Avatar și slogan mai mici */
+    .user-avatar {
+        width: 40px;
+        height: 25px;
+    }
+    
+    .user-avatar-name {
+        font-size: 8px;
+    }
+    
+    .user-slogan {
+        font-size: 8px;
+    }
+    
+    /* Footer mai compact */
+    .info-footer {
+        padding: 6px 12px;
+        margin: 20px 8px 0;
+    }
+    
+    .info-footer .info-text {
+        font-size: 10px;
+    }
+    
+    .info-footer .copyright {
+        font-size: 8px;
+    }
+    
+    /* Donate button mai mic */
+    .donate-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+        bottom: 8px;
+        right: 8px;
+    }
+    
+    /* Tab-uri colecții responsive */
+    .tabs-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    .tab {
+        font-size: 12px;
+        padding: 6px 10px;
+        white-space: nowrap;
+    }
+    
+    /* Ajustări pentru elementele de formular și butoane */
+    .btn-action,
+    .btn-primary,
+    .btn-secondary {
+        font-size: 12px;
+        padding: 8px 12px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    /* Text mai mic pentru detalii obiecte */
+    .detalii-obiecte {
+        font-size: 12px;
+    }
+    
+    .detalii-obiecte .denumire {
+        font-size: 13px;
+    }
+    
+    /* Optimizare spațiere pentru liste */
+    ul, ol {
+        padding-left: 20px;
+    }
+    
+    li {
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
+    
+    /* Modal responsive */
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .modal-header {
+        font-size: 16px;
+    }
+    
+    /* Ajustări pentru căutare */
+    .search-container input {
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    .search-button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}

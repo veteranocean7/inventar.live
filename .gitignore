@@ -1,0 +1,35 @@
+# Configurare și credențiale
+config.php
+config_*.php
+google-vision-key.json
+api_GV_config.php
+*.json.bak
+GitHub_profile_Cornel.md
+
+# Directoare cu date utilizator
+imagini_obiecte/
+imagini_decupate/
+uploads/
+
+# Cache și temp
+*.log
+*.tmp
+.cache/
+cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vendor (regenerabil cu composer install)
+vendor/
+
+# Backup-uri locale
+*.backup*
+*.bak

@@ -1,0 +1,19 @@
+BACKUP LOGICA ORIGINALĂ ICONURI - index.php linia 1811-1832
+===========================================================
+
+Cod original:
+-------------
+        $iconite_colectii = ['🏠', '🏢', '🚗', '🏔️', '🏖️', '🏭', '🏛️', '📦'];
+        $index_icon = 0;
+
+        while ($colectie = mysqli_fetch_assoc($result_proprii)) {
+            // ... cod anterior ...
+            
+            $icon = $colectie['este_principala'] ? '🏠' : ($iconite_colectii[$index_icon % count($iconite_colectii)] ?? '📦');
+            if (!$colectie['este_principala']) $index_icon++;
+            
+            // ... cod următor ...
+
+===========================================================
+Salvat la: 2025-08-30
+Motiv: Îmbunătățire logică atribuire iconuri pentru colecții

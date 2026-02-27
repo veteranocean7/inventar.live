@@ -1,0 +1,716 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding-top: 10px; /* 🧱 Spațiu sub navbar fix */
+}
+
+h1 {
+    text-align: center;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+}
+
+form input[type="text"],
+form input[type="file"],
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.obiect {
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+    margin-bottom: 15px;
+}
+
+.obiect img.thumb {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+.thumb {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.modala {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.continut-modala {
+    background: white;
+    padding: 20px;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.modala {
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.container-img {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ccc;
+    max-width: 100%;
+}
+.container-img img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.eticheta {
+    position: absolute;
+    padding: 4px 8px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: move;
+    user-select: none;
+    max-width: 150px;
+    word-wrap: break-word;
+}
+.select-categorie-wrapper {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.select-categorie {
+    padding: 5px;
+    font-size: 14px;
+}
+.titlu-pagina {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.navigatie {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.detalii-obiecte {
+    display: none;
+    margin-top: 10px;
+}
+
+.grup-header {
+    cursor: pointer;
+    background: #f2f2f2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.grup-header:hover {
+    background: #e8e8e8;
+}
+.badge-cantitate {
+    display: inline-block;
+    min-width: 24px;
+    padding: 2px 6px;
+    font-size: 0.9em;
+    background-color: #e0e0e0;
+    color: #333;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 8px;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.badge-cantitate:hover {
+    background-color: #ccc;
+}
+
+.grup-obiecte {
+    background: #f0f0f0; /* gri mai pronunțat */
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 26px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.grup-obiecte:hover {
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+}
+
+.eticheta[contenteditable]:empty::before {
+    content: attr(data-placeholder);
+    color: #ccc;
+    pointer-events: none;
+    position: absolute;
+}
+
+.rotunjit {
+    border-radius: 8px;
+    padding: 4px 6px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Bara de navigare modernă */
+.navbar {
+    position: fixed;
+    top: 0px;                /* Un pic de spațiu față de marginea de sus */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 700px;         /* la fel ca .container */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    background-color: #e0e0e0;
+    background-image:
+            linear-gradient(rgba(160, 160, 160, 0.4) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(160, 160, 160, 0.4) 1px, transparent 1px);
+    background-size: 15px 15px;
+    padding: 20px;
+    border-radius: 3px;
+    border: 2px solid #555;
+    border-top-width: 7px;
+    box-shadow:
+            0 2px 5px rgba(0,0,0,0.2),
+            inset 0 -1px 0 rgba(0,0,0,0.1), /* Linia subțire sub marginea de sus */
+            inset 0 1px 0 rgba(255,255,255,0.6);
+    z-index: 1000;
+}
+
+
+/* Linkuri stilizate modern */
+.modern-link {
+    display: inline-block;
+    background-color: #2e2e40;
+    color: #f0f0f0;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.modern-link:hover {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.imagini-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.thumb {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.thumb:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.thumb.selected {
+    border: 3px solid #2196F3;
+    box-shadow: 0 0 8px #2196F3;
+}
+
+.imagine-info {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.badge-categorie {
+    padding: 2px 6px;
+    margin-right: 4px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.edit-categorii {
+    display: none;
+    margin-top: 5px;
+}
+
+/* Stiluri pentru bara de căutare fixă */
+/* Stiluri pentru bara de căutare fixă */
+.search-bar {
+    position: fixed;
+    top: 85px; /* Ajustează în funcție de înălțimea navbar-ului și distanța dorită */
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 700px; /* Aceeași valoare ca la navbar */
+    margin: 0 auto; /* Centrează bara de căutare */
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 999;
+    border-radius: 12px; /* Similar cu navbar-ul */
+}
+
+.search-bar input {
+    width: 85%;
+    max-width: 600px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Spațiu pentru a nu suprapune conținutul cu bara de căutare */
+.container {
+    margin-top: 130px;
+}
+
+/* Stil pentru evidențierea elementelor găsite */
+.highlight {/* Stiluri pentru etichete pe imagine */
+    .eticheta {
+        padding: 2px 4px;  /* Padding redus */
+        border-radius: 4px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        cursor: pointer;
+        border: 1px solid black; /* Bordură subțire neagră pentru toate etichetele */
+        box-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.4), /* Umbră gri redusă */
+                0 1px 3px rgba(255, 255, 255, 0.3); /* Umbră albă redusă */
+        display: inline-block;
+        max-width: 150px;  /* Limitare lățime maximă */
+        opacity: 0.85;     /* Semitransparență */
+        font-size: 0.9em;  /* Text mai mic */
+        transition: opacity 0.2s;
+    }
+
+    .eticheta:hover {
+        opacity: 1;  /* La hover devine complet opacă */
+    }
+
+    .eticheta[contenteditable="true"] {
+        min-width: 30px;   /* Lățime minimă redusă */
+        border: 1px solid black;
+        outline: none;
+        opacity: 1;        /* Complet opacă în timpul editării */
+        padding: 2px 5px;
+    }
+
+    /* Stiluri pentru zona de imagine */
+    .container-img {
+        position: relative;
+        margin: 20px 0;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .container-img img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Stiluri pentru selector de categorie */
+    .select-categorie-wrapper {
+        margin: 15px 0;
+    }
+
+    #select-categorie {
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Stiluri pentru etichete salvate */
+    .eticheta-pad {
+        margin: 10px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .obiect-salvat {
+        display: inline-block;
+        padding: 3px 6px;
+        border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border: 1px solid black; /* Bordură neagră pentru toate etichetele */
+    }
+
+    .rotunjit {
+        border-radius: 4px;
+    }
+    background-color: yellow;
+    font-weight: bold;
+}
+
+/* Ascundem elementele care nu se potrivesc cu căutarea */
+.grup-obiecte.hidden {
+    display: none !important;
+}
+
+/* Stiluri pentru tooltip care afiseaza cantitatea obiectului, la mouse over, reprezentat de eticheta */
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 1000;
+    pointer-events: none; /* Pentru a nu interfera cu evenimentele mouse */
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap; /* Previne împărțirea pe mai multe linii */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid rgba(0, 0, 0, 0.8);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+}
+
+.eticheta {
+    cursor: pointer;
+}
+
+/* Stiluri pentru tooltip-ul de editare a cantitatii la dublu clic pe eticheta */
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-align: center;
+}
+
+.tooltip-editare {
+    pointer-events: auto;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 3px;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.tooltip-editare input {
+    width: 35px;
+    text-align: center;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+<style>
+     /* Stiluri inline ce vor fi mutate în fișierele CSS */
+ .upload-buttons {
+     display: flex;
+     gap: 15px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+ }
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.upload-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Aici este tehnica corectă pentru a ascunde inputurile dar a le păstra funcționale */
+.upload-button input[type="file"] {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.info-obiect {
+    font-size: 0.8em;
+    margin-left: 15px;
+    font-weight: normal;
+}
+
+/* ========================================
+   PWA - Indicator Status Conexiune
+   ======================================== */
+
+/* Banner offline global */
+body.offline-mode::before {
+    content: "Ești offline - Unele funcții nu sunt disponibile";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, #ff9800, #f57c00);
+    color: white;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 10000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Ajustare conținut când e offline */
+body.offline-mode {
+    padding-top: 36px !important;
+}
+
+body.offline-mode .container {
+    margin-top: 10px;
+}
+
+/* Indicator mic în colț */
+.pwa-status-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.pwa-status-indicator.online {
+    background: #4CAF50;
+    color: white;
+}
+
+.pwa-status-indicator.offline {
+    background: #ff9800;
+    color: white;
+}
+
+.pwa-status-indicator .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
+}
+
+/* Butoane dezactivate în mod offline */
+body.offline-mode .btn-vision,
+body.offline-mode .btn-sync,
+body.offline-mode [data-requires-online="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+body.offline-mode .btn-vision::after,
+body.offline-mode [data-requires-online="true"]::after {
+    content: " (offline)";
+    font-size: 10px;
+}
+
+/* Status syncing */
+.pwa-status-indicator.syncing {
+    background: #2196F3;
+    color: white;
+}
+
+.pwa-status-indicator.syncing .status-dot {
+    animation: spin-dot 1s linear infinite;
+}
+
+@keyframes spin-dot {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.pwa-status-indicator.error {
+    background: #f44336;
+    color: white;
+}
+
+/* Notificare update disponibil */
+.pwa-update-banner {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.pwa-update-banner button {
+    background: white;
+    color: #4CAF50;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: auto;
+    margin: 0;
+}
+
+.pwa-update-banner button:hover {
+    background: #f5f5f5;
+}
+
+/* Indicator date offline */
+.offline-data-notice {
+    background: linear-gradient(90deg, #ff9800, #f57c00);
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    font-size: 13px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.offline-data-notice strong {
+    font-weight: 600;
+}

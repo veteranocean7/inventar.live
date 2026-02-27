@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Inventar.live</title>
+    <meta name="theme-color" content="#007BFF">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f4f4f4 0%, #e0e0e0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .offline-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #fff3cd;
+            border-radius: 20px;
+            color: #856404;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #ffc107;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .btn-retry {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-retry:hover {
+            background: #0056b3;
+        }
+
+        .cached-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .cached-info a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📴</div>
+
+        <h1>Ești offline</h1>
+
+        <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span>Fără conexiune la internet</span>
+        </div>
+
+        <p>
+            Nu te îngrijora! Datele tale sunt în siguranță.
+            Verifică conexiunea la internet și încearcă din nou.
+        </p>
+
+        <button class="btn-retry" onclick="location.reload()">
+            Reîncearcă
+        </button>
+
+        <div class="cached-info" id="cachedInfo">
+            <p>Verificare date salvate local...</p>
+        </div>
+    </div>
+
+    <script>
+        // Verifică dacă avem date în cache
+        if ('caches' in window) {
+            caches.open('inventar-cache-v1').then(cache => {
+                cache.keys().then(keys => {
+                    const cachedPages = keys.filter(k => k.url.endsWith('.php')).length;
+                    const cachedImages = keys.filter(k =>
+                        k.url.includes('/imagini_obiecte/') ||
+                        k.url.includes('/imagini_decupate/')
+                    ).length;
+
+                    document.getElementById('cachedInfo').innerHTML = `
+                        <p>
+                            ${cachedPages > 0 ? `<a href="/">Vezi ${cachedPages} pagini salvate</a>` : 'Nicio pagină salvată local'}
+                            ${cachedImages > 0 ? `<br>${cachedImages} imagini disponibile offline` : ''}
+                        </p>
+                    `;
+                });
+            });
+        }
+
+        // Auto-retry când revine conexiunea
+        window.addEventListener('online', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html>
