@@ -18,6 +18,9 @@ uploads/
 cache/
 logs/
 
+# Claude Code settings locale
+.claude/settings.local.json
+
 # IDE
 .idea/
 .vscode/
