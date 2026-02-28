@@ -81,15 +81,12 @@ register_shutdown_function(function() use ($lock_file) {
     }
 });
 
-// Încarcă dependențele
+// Încarcă dependențele (FĂRĂ config.php care verifică autentificarea!)
 try {
-    require_once ROOT_PATH . '/config.php';
+    // Încarcă config centrală direct (nu config.php care face redirect)
+    require_once ROOT_PATH . '/config_central.php';
     require_once ROOT_PATH . '/config_claude.php';
     require_once ROOT_PATH . '/includes/claude_vision_service.php';
-
-    if (file_exists(ROOT_PATH . '/includes/auth_functions.php')) {
-        require_once ROOT_PATH . '/includes/auth_functions.php';
-    }
 
     cron_log("Dependențe încărcate");
 } catch (Exception $e) {

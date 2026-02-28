@@ -1,8 +1,8 @@
 # Claude Vision Service - Identificare Automată Obiecte
 
-**Versiune:** 1.0.0
-**Data:** 27 Februarie 2026
-**Status:** Implementat, necesită configurare API key
+**Versiune:** 1.1.0
+**Data:** 28 Februarie 2026
+**Status:** Implementat complet cu cron job pentru procesare nocturnă
 
 ---
 
@@ -26,13 +26,17 @@ Serviciul Claude Vision înlocuiește/completează Google Vision pentru identifi
 ```
 public_html/
 ├── includes/
-│   └── claude_vision_service.php    # Serviciul principal
+│   ├── claude_vision_service.php    # Serviciul principal
+│   └── queue_manager.php            # Manager coadă procesare
+├── cron/
+│   └── procesare_automata_imagini.php  # Cron job procesare nocturnă
 ├── config_claude.php                # Configurare API (EXCLUS din git!)
 ├── sql/
 │   └── claude_vision_queue.sql      # Schema DB pentru queue
 ├── test_claude_vision.php           # Script de test
 └── logs/
-    └── claude_vision.log            # Log-uri (EXCLUS din git)
+    ├── claude_vision.log            # Log-uri API (EXCLUS din git)
+    └── cron_procesare.log           # Log-uri cron (EXCLUS din git)
 ```
 
 ---
@@ -188,30 +192,95 @@ Serviciul clasifică obiectele în aceste categorii:
 
 ---
 
-## Procesare Nocturnă (Planificat)
+## Procesare Nocturnă (Implementat ✅)
 
-### Flux propus:
+**Status:** Implementat complet - 28 Februarie 2026
+
+### Flux implementat:
 
 ```
 ZIUA:
 User face fotografii → Upload în aplicație →
-Salvare în DB cu status "pending"
+QueueManager::addToQueue() → Salvare în DB cu status "pending"
 
 NOAPTEA (Cron 02:00):
-Select imagini pending → Trimite batch la Claude →
-Primește JSON structurat → Salvează rezultate →
-Marchează "completed"
+procesare_automata_imagini.php:
+  1. Verifică lock file (evită rulări simultane)
+  2. Selectează imagini pending (batch 50)
+  3. Pentru fiecare imagine:
+     - Marchează "processing"
+     - Apelează Claude Vision API
+     - Salvează rezultat JSON sau eroare
+     - Marchează "completed" sau retry
+  4. Salvează statistici zilnice
+  5. Curăță înregistrări vechi (>30 zile)
 
 DIMINEAȚA:
-User vede notificare "12 obiecte identificate" →
+User vede rezultate în interfață →
 Verifică și confirmă/corectează
 ```
 
-### Cron job (de implementat):
+### Configurare Cron Job
 
 ```bash
-# În crontab
-0 2 * * * php /path/to/cron/procesare_automata_imagini.php
+# Editează crontab pe server
+crontab -e
+
+# Adaugă linia (procesare la 02:00 noaptea):
+0 2 * * * /usr/bin/php /home/inventar/public_html/cron/procesare_automata_imagini.php >> /home/inventar/public_html/logs/cron_procesare.log 2>&1
+```
+
+### Utilizare QueueManager
+
+```php
+require_once 'includes/queue_manager.php';
+
+// Adaugă o imagine în coadă
+$manager = new QueueManager();
+$result = $manager->addToQueue($user_id, $colectie_id, 'imagini_obiecte/foto.jpg', [
+    'locatie' => 'Garaj',
+    'cutie' => 'Cutie roșie',
+    'context' => 'Unelte de atelier',
+    'prioritate' => 5  // 1=urgent, 10=low priority
+]);
+
+// Sau folosind helper function
+$result = addImageToProcessingQueue($user_id, $colectie_id, 'path/to/image.jpg', $options);
+
+// Verifică status
+$status = $manager->getStatus($queue_id);
+
+// Obține toate imaginile pending
+$pending = $manager->getPendingForUser($user_id);
+
+// Obține statistici
+$stats = $manager->getStatsForUser($user_id);
+```
+
+### Caracteristici Cron Job
+
+| Funcție | Detalii |
+|---------|---------|
+| **Lock file** | Previne rulări simultane |
+| **Batch size** | 50 imagini/execuție (configurabil) |
+| **Delay între request-uri** | 500ms (evită rate limiting) |
+| **Max retries** | 3 încercări per imagine |
+| **Timeout** | 1 oră max execuție |
+| **Memory limit** | 512MB |
+| **Log rotation** | Auto la 10MB |
+| **Cleanup** | Șterge înregistrări >30 zile |
+
+### Monitorizare
+
+```bash
+# Verifică log-urile
+tail -f /home/inventar/public_html/logs/cron_procesare.log
+
+# Verifică statistici în DB
+SELECT * FROM claude_vision_stats ORDER BY data_stat DESC LIMIT 7;
+
+# Verifică queue status
+SELECT status, COUNT(*) FROM procesare_imagini_queue GROUP BY status;
 ```
 
 ---
@@ -247,7 +316,8 @@ Verifică și confirmă/corectează
 
 ## TODO
 
-- [ ] Implementare cron job pentru procesare nocturnă
+- [x] Implementare cron job pentru procesare nocturnă ✅ (28 Feb 2026)
+- [x] QueueManager pentru gestionare coadă ✅ (28 Feb 2026)
 - [ ] UI pentru vizualizare status procesare
 - [ ] Sistem de confirmare/corecție de către user
 - [ ] Learning din corecțiile user-ului
@@ -274,6 +344,23 @@ Verifică și confirmă/corectează
 
 → Imaginea poate fi prea complexă. Verifică log-urile în `logs/claude_vision.log`
 
+### "Alt proces rulează deja" (Cron)
+
+→ Verifică dacă există lock file vechi: `ls -la logs/cron_procesare.lock`
+→ Dacă procesul anterior a crashed, șterge manual lock-ul
+
+### "Tabela procesare_imagini_queue nu există"
+
+→ Rulează `sql/claude_vision_queue.sql` în phpMyAdmin pe baza `inventar_central`
+
+### Cron nu rulează
+
+→ Verifică că cron-ul e configurat: `crontab -l`
+→ Verifică calea PHP: `which php`
+→ Verifică permisiuni pe script: `ls -la cron/procesare_automata_imagini.php`
+→ Testează manual: `/usr/bin/php /home/inventar/public_html/cron/procesare_automata_imagini.php`
+
 ---
 
 *Documentație creată: 27 Februarie 2026*
+*Ultima actualizare: 28 Februarie 2026*

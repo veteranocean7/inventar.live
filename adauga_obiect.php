@@ -3,6 +3,11 @@
 session_start();
 include 'config.php';
 
+// Include queue manager pentru procesare automată imagini
+if (file_exists('includes/queue_manager.php')) {
+    require_once 'includes/queue_manager.php';
+}
+
 // Dezactivăm afișarea erorilor pentru a nu strica JSON-ul
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
@@ -283,14 +288,54 @@ file_put_contents($debug_log, "--- Sfârșitul sesiunii ---\n\n", FILE_APPEND);
 $id_obiect = $exista ? $exista['id_obiect'] : mysqli_insert_id($conn);
 $prima_imagine = $imagini_incarcate[0]; // Prima imagine din cele noi adăugate
 
+// Adaugă imaginile în coada de procesare automată (Claude Vision)
+$imagini_in_queue = 0;
+if (class_exists('QueueManager') && $id_colectie > 0) {
+    try {
+        $queue_manager = new QueueManager();
+        $queue_options = [
+            'locatie' => $locatie,
+            'cutie' => $cutie,
+            'id_obiect' => $id_obiect,
+            'prioritate' => 5
+        ];
+
+        foreach ($imagini_incarcate as $img) {
+            $cale_relativa = $folder_upload . '/' . $img;
+            $queue_result = $queue_manager->addToQueue(
+                $user_id,
+                $id_colectie,
+                $cale_relativa,
+                array_merge($queue_options, ['nume_original' => $img])
+            );
+            if ($queue_result['success']) {
+                $imagini_in_queue++;
+            }
+        }
+    } catch (Exception $e) {
+        // Silently fail - nu blocăm upload-ul pentru erori de queue
+        error_log("Queue error: " . $e->getMessage());
+    }
+}
+
 mysqli_close($conn);
 
 // Returnăm JSON cu informațiile necesare pentru redirect
 header('Content-Type: application/json');
-echo json_encode([
+$response = [
     'success' => true,
     'id_obiect' => $id_obiect,
     'imagine' => $prima_imagine,
     'message' => 'Imaginile au fost adăugate cu succes!'
-]);
+];
+
+// Adaugă info despre queue dacă imaginile au fost adăugate
+if ($imagini_in_queue > 0) {
+    $response['queue'] = [
+        'added' => $imagini_in_queue,
+        'message' => $imagini_in_queue . ' imagine(i) în coadă pentru identificare automată'
+    ];
+}
+
+echo json_encode($response);
 exit();
